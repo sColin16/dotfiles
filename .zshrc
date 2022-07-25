@@ -97,6 +97,22 @@ alias gpu="git push upstream"
 # Use ls with icons!
 alias ls='lsd'
 
+# Functions to mark the random themes that I liked, and view them
+# TODO: can I add a "mode" that let's me switch between exploring random
+# themes, and using one of the themes that I liked?
+# TODO: can I add an "unlike" feature (easy is to remove last line of file,
+# more complex is to remove the line from the file, if it exists)
+ZSH_LIKED_THEMES=~/.zsh-liked-themes.txt
+function like-theme() {
+    touch $ZSH_LIKED_THEMES
+    echo $RANDOM_THEME >> $ZSH_LIKED_THEMES
+}
+
+function liked-themes() {
+    touch $ZSH_LIKED_THEMES
+    cat $ZSH_LIKED_THEMES
+}
+
 # Function to find most common commands (useful for identifying new aliases)
 function zsh-stats() {
   fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n25
